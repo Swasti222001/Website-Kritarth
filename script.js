@@ -30,11 +30,15 @@ $('.count').each(function () {
 // var tl = gsap.timeline({ repeat: -1 });
 // tl.to("h1", 30, { backgroundPosition: "-960px 0" });
 
+
+if (window.matchMedia("(max-width: 992px)").matches) {
+ 
 jQuery(function($) {
 
   var $nav = $('.sidebar_cont');
   var $win = $(window);
-  var winH = $win.height();   // Get the window height.
+  var winH = [[$win.height()-($win.height()*0.25)]]   // Get the window height.
+  console.log(winH);
 
   $win.on("scroll", function () {
       if ($(this).scrollTop() > winH ) {
@@ -49,6 +53,30 @@ jQuery(function($) {
   });
 
 });
+} else {
+  
+jQuery(function($) {
+
+  var $nav = $('.sidebar_cont');
+  var $win = $(window);
+  var winH = $win.height();   // Get the window height.
+  console.log(winH);
+
+  $win.on("scroll", function () {
+      if ($(this).scrollTop() > winH ) {
+          $nav.addClass("sidebar_cont_visible");
+          $nav.addClass("hamburger_mob");
+      } else {
+          $nav.removeClass("sidebar_cont_visible");
+          $nav.removeClass("hamburger_mob");
+      }
+  }).on("resize", function(){ // If the user resizes the window
+     winH = $(this).height(); // you'll need the new height value
+  });
+
+});
+}
+
 const scrollElements = document.querySelectorAll(".js-scroll");
 
 const elementInView = (el, dividend = 1) => {
